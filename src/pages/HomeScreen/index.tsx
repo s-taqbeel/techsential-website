@@ -11,7 +11,7 @@ import {
   Accordion
 } from "components";
 // import TextOutline from "components/TextOutline";
-// import Link from "next/link";
+import Link from "next/link";
 
 
 
@@ -20,12 +20,19 @@ const HomeScreenPage: FC = () => {
   const [sliderState, setsliderState] = useState(0);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [toggle, setToggle] = useState<boolean>(false);
+  const [selectedLink, setSelectedLink] = useState('/');
+
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 1024); // Adjust the breakpoint as needed
     };
 
+    if (window?.location?.hash) {
+      setSelectedLink(window?.location?.hash?.replace('#', ''))
+    } else {
+      setSelectedLink('/')
+    }
     // Initial check
     handleResize();
 
@@ -47,44 +54,50 @@ const HomeScreenPage: FC = () => {
           {
             !isMobile ? (
               <div className=" flex  flex-row justify-between items-center sm:flex-col   w-[80%] mx-auto">
-                <Img
-                  className=" h-[3rem] object-cover"
-                  src="images/logo_nav.png"
-                  alt="vector_One"
-                />
-
+                <a href="/" onClick={() => setSelectedLink('/')}>
+                  <Img
+                    className=" h-[3rem] object-cover"
+                    src="images/logo_nav.png"
+                    alt="vector_One"
+                  />
+                </a>
 
                 <div className="flex  sm:flex-col flex-row gap-[2rem] items-center">
                   <Text
-                    className="bg-clip-text bg-gradient  text-lg text-transparent w-auto"
+                    // className="bg-clip-text bg-gradient  text-lg text-transparent w-auto"
+                    className={`text-lg ${selectedLink === "/" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                     size="txtPoppinsMedium18"
                   >
                     {/* <Link href="/">Home</Link> */}
-                    <a href="/">Home</a>
+                    <a href="/" onClick={() => setSelectedLink('/')}>Home</a>
                   </Text>
                   <Text
-                    className="text-lg text-white-A700 w-auto"
+                    // className="text-lg text-white-A700 w-auto"
+                    className={`text-lg ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                     size="txtPoppinsMedium18WhiteA700"
                   >
-                    <a href="#about-us"> About Us</a>
+                    <a href="#about-us" onClick={() => setSelectedLink('about-us')}> About Us</a>
                   </Text>
                   <Text
-                    className="text-lg text-white-A700 w-auto"
+                    // className="text-lg text-white-A700 w-auto"
+                    className={`text-lg ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                     size="txtPoppinsMedium18WhiteA700"
                   >
-                    <a href="#our-projects">Portfolio</a>
+                    <a href="#our-projects" onClick={() => setSelectedLink('our-projects')}>Portfolio</a>
                   </Text>
                   <Text
-                    className="text-lg text-white-A700 w-auto"
+                    // className="text-lg text-white-A700 w-auto"
+                    className={`text-lg ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                     size="txtPoppinsMedium18WhiteA700"
                   >
-                    <a href="#services">Services</a>
+                    <a href="#services" onClick={() => setSelectedLink('services')}>Services</a>
                   </Text>
                   <Text
-                    className="text-lg text-white-A700 w-auto"
+                    //  className="text-lg text-white-A700 w-auto"
+                    className={`text-lg ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                     size="txtPoppinsMedium18WhiteA700"
                   >
-                    <a href="#faq">FAQ</a>
+                    <a href="#faq" onClick={() => setSelectedLink('faq')}>FAQ</a>
                   </Text>
                   {/* <Button className="bg-gradient  cursor-pointer font-medium  min-w-[196px] md:ml-[0]  py-3 rounded text-center text-lg text-white-A700">
                     <a href="mailto:santosh.krishna@techsential.io"> Request A Quote</a>
@@ -96,11 +109,12 @@ const HomeScreenPage: FC = () => {
               <div className="flex flex-row justify-between md:px-5">
 
                 <div className="image flex-col">
-                  <Img
+                  <a href="/" onClick={() => setSelectedLink('/')}>   <Img
                     className=" h-[3rem] object-cover"
                     src="images/logo_nav.png"
                     alt="vector_One"
                   />
+                  </a>
                 </div>
 
                 <div className="image flex-col z-[2]">
@@ -116,38 +130,43 @@ const HomeScreenPage: FC = () => {
                   />
                 </div>
 
-                <div className={`${toggle ? 'slide-in' : 'slide-out'} p-4 space-y-4 flex flex-col fixed z-[1] h-[100vh] inset-y-0 right-0 w-2/3 bg-gray-700 bg-opacity-50  backdrop-blur-md shadow-lg`}>
+                <div className={`${toggle ? 'slide-in' : 'slide-out'} p-4 py-20 space-y-4 flex flex-col fixed z-[1] h-[100vh] inset-y-0 right-0 w-2/3 bg-gray-700 bg-opacity-50  backdrop-blur-md shadow-lg`}>
                   <div className="flex-col h-full gap-5 p-5 flex ">
 
                     <Text
-                      className="bg-clip-text bg-gradient  text-lg text-transparent"
+                      // className="bg-clip-text bg-gradient  text-lg text-transparent"
+                      className={`text-[26px] ${selectedLink === "/" ? 'bg-clip-text bg-gradient text-transparent w-auto' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18"
                     >
-                      <a href="/">Home</a>
+                      <a href="/" onClick={() => { setToggle(false); setSelectedLink('/') }}>Home</a>
                     </Text>
                     <Text
-                      className="text-lg text-white-A700 w-auto"
+                      // className="text-lg text-white-A700 w-auto"
+                      className={`text-[26px] ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18WhiteA700"
                     >
-                      <a href="#about-us">About Us</a>
+                      <a href="#about-us" onClick={() => { setToggle(false); setSelectedLink('about-us') }}>About Us</a>
                     </Text>
                     <Text
-                      className="text-lg text-white-A700 w-auto"
+                      // className="text-lg text-white-A700 w-auto"
+                      className={`text-[26px] ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18WhiteA700"
                     >
-                      <a href="#our-projects">Portfolio</a>
+                      <a href="#our-projects" onClick={() => { setToggle(false); setSelectedLink('our-projects') }}>Portfolio</a>
                     </Text>
                     <Text
-                      className="text-lg text-white-A700 w-auto"
+                      // className="text-lg text-white-A700 w-auto"
+                      className={`text-[26px] ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18WhiteA700"
                     >
-                      <a href="#services">Services</a>
+                      <a href="#services" onClick={() => { setToggle(false); setSelectedLink('services') }}>Services</a>
                     </Text>
                     <Text
-                      className="text-lg text-white-A700 w-auto"
+                      // className="text-lg text-white-A700 w-auto"
+                      className={`text-[26px] ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18WhiteA700"
                     >
-                      <a href="#faq">FAQ</a>
+                      <a href="#faq" onClick={() => { setToggle(false); setSelectedLink('faq'); }}>FAQ</a>
                     </Text>
                     {/* <Button className="bg-gradient  cursor-pointer font-medium  min-w-[196px] md:ml-[0]  py-3 rounded text-center text-lg text-white-A700">
                         <a href="mailto:santosh.krishna@techsential.io">Request A Quote</a>
@@ -160,7 +179,7 @@ const HomeScreenPage: FC = () => {
           }
 
           <div className="relative w-full">
-           {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-sm w-auto h-[100vh]"></div>}
+            {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-sm w-auto h-[100vh]"></div>}
             <Img
               className="h-[716px] m-auto object-cover"
               src="images/header_bg.png"
@@ -292,7 +311,7 @@ const HomeScreenPage: FC = () => {
 
               >
                 <span className="text-white-A700 font-poppins  font-light ">
-                We develop Websites that are:
+                  We develop Websites that are:
                   <br />
                 </span>
                 <ul className="sm:text-[15px] md:text-[17px] text-[19px] text-white-A700 font-poppins text-left text-lg font-light list-disc list-inside ml-5 ">
