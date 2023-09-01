@@ -45,6 +45,22 @@ const HomeScreenPage: FC = () => {
     };
   }, []);
 
+  const scrollToSection = (event, sectionId) => {
+    event.preventDefault();
+    setSelectedLink(sectionId.replace('#', ''))
+    isMobile && setToggle(false)
+    const section = document.querySelector(sectionId);
+    if (section) {
+      const topOffset = section.getBoundingClientRect().top;
+      const targetPosition = topOffset + window.scrollY;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    }
+  }
+
   return (
     <>
       <div className="bg-black-900 flex flex-col font-poppins items-center justify-end mx-auto py-[30px] w-full">
@@ -69,35 +85,35 @@ const HomeScreenPage: FC = () => {
                     size="txtPoppinsMedium18"
                   >
                     {/* <Link href="/">Home</Link> */}
-                    <a href="/" onClick={() => setSelectedLink('/')}>Home</a>
+                    <a href="#home" onClick={(event) => scrollToSection(event, '#home')}>Home</a>
                   </Text>
                   <Text
                     // className="text-lg text-white-A700 w-auto"
                     className={`text-lg ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                     size="txtPoppinsMedium18WhiteA700"
                   >
-                    <a href="#about-us" onClick={() => setSelectedLink('about-us')}> About Us</a>
+                    <a href="#about-us" onClick={(event) => scrollToSection(event, '#about-us')}> About Us</a>
                   </Text>
                   <Text
                     // className="text-lg text-white-A700 w-auto"
                     className={`text-lg ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                     size="txtPoppinsMedium18WhiteA700"
                   >
-                    <a href="#our-projects" onClick={() => setSelectedLink('our-projects')}>Portfolio</a>
+                    <a href="#our-projects" onClick={(event) => scrollToSection(event, '#our-projects')}>Portfolio</a>
                   </Text>
                   <Text
                     // className="text-lg text-white-A700 w-auto"
                     className={`text-lg ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                     size="txtPoppinsMedium18WhiteA700"
                   >
-                    <a href="#services" onClick={() => setSelectedLink('services')}>Services</a>
+                    <a href="#services" onClick={(event) => scrollToSection(event, '#services')}>Services</a>
                   </Text>
                   <Text
                     //  className="text-lg text-white-A700 w-auto"
                     className={`text-lg ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                     size="txtPoppinsMedium18WhiteA700"
                   >
-                    <a href="#faq" onClick={() => setSelectedLink('faq')}>FAQ</a>
+                    <a href="#faq" onClick={(event) => scrollToSection(event, '#faq')}>FAQ</a>
                   </Text>
                   {/* <Button className="bg-gradient  cursor-pointer font-medium  min-w-[196px] md:ml-[0]  py-3 rounded text-center text-lg text-white-A700">
                     <a href="mailto:santosh.krishna@techsential.io"> Request A Quote</a>
@@ -138,35 +154,35 @@ const HomeScreenPage: FC = () => {
                       className={`text-[26px] ${selectedLink === "/" ? 'bg-clip-text bg-gradient text-transparent w-auto' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18"
                     >
-                      <a href="/" onClick={() => { setToggle(false); setSelectedLink('/') }}>Home</a>
+                      <a href="#home" onClick={(event) => scrollToSection(event, '#home')}>Home</a>
                     </Text>
                     <Text
                       // className="text-lg text-white-A700 w-auto"
                       className={`text-[26px] ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18WhiteA700"
                     >
-                      <a href="#about-us" onClick={() => { setToggle(false); setSelectedLink('about-us') }}>About Us</a>
+                      <a href="#about-us" onClick={(event) => scrollToSection(event, '#about-us')}>About Us</a>
                     </Text>
                     <Text
                       // className="text-lg text-white-A700 w-auto"
                       className={`text-[26px] ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18WhiteA700"
                     >
-                      <a href="#our-projects" onClick={() => { setToggle(false); setSelectedLink('our-projects') }}>Portfolio</a>
+                      <a href="#our-projects" onClick={(event) => scrollToSection(event, '#our-projects')}>Portfolio</a>
                     </Text>
                     <Text
                       // className="text-lg text-white-A700 w-auto"
                       className={`text-[26px] ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18WhiteA700"
                     >
-                      <a href="#services" onClick={() => { setToggle(false); setSelectedLink('services') }}>Services</a>
+                      <a href="#services" onClick={(event) => scrollToSection(event, '#services')}>Services</a>
                     </Text>
                     <Text
                       // className="text-lg text-white-A700 w-auto"
                       className={`text-[26px] ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
                       size="txtPoppinsMedium18WhiteA700"
                     >
-                      <a href="#faq" onClick={() => { setToggle(false); setSelectedLink('faq'); }}>FAQ</a>
+                      <a href="#faq" onClick={(event) => scrollToSection(event, '#faq')}>FAQ</a>
                     </Text>
                     {/* <Button className="bg-gradient  cursor-pointer font-medium  min-w-[196px] md:ml-[0]  py-3 rounded text-center text-lg text-white-A700">
                         <a href="mailto:santosh.krishna@techsential.io">Request A Quote</a>
@@ -178,8 +194,8 @@ const HomeScreenPage: FC = () => {
             )
           }
 
-          <div className="relative w-full">
-            {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-sm w-auto h-[100vh]"></div>}
+          <div className="relative w-full" id="#home">
+            {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-md w-auto h-[100vh]"></div>}
             <Img
               className="h-[716px] m-auto object-cover"
               src="images/header_bg.png"
@@ -202,7 +218,7 @@ const HomeScreenPage: FC = () => {
                 </span>
               </Text>
               <Text
-                className="leading-[26px]  mt-[17px] sm:text-[17px] md:text-[19px] text-[21px] text-white-A700"
+                className="leading-[26px]  mt-[17px] sm:text-[17px] text-[19px] text-white-A700"
                 size="txtPoppinsLight21"
               >
                 <>
@@ -231,7 +247,7 @@ const HomeScreenPage: FC = () => {
 
         <div className="relative w-full" id="about-us">
           <div className="relative w-full">
-            {/* {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-sm w-[100vw] h-[100vh]"></div>} */}
+            {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-sm w-[100vw] h-[100vh]"></div>}
             <Img
               className=" m-auto object-cover h-auto w-full"
               src="images/cubes.png"
@@ -441,26 +457,26 @@ const HomeScreenPage: FC = () => {
         >
           Our Projects
         </Text>
-        <div className="flex md:flex-col flex-row gap-[18px] items-center justify-start max-w-[1206px] mt-[2rem] mx-auto md:px-5 w-full">
+        <div className="flex sm:flex-col flex-row gap-[18px] items-center justify-start max-w-[1206px] mt-[2rem] mx-auto md:px-5 md:justify-center w-full">
           <Img
-            className="md:flex-1 h-[436px] md:h-auto object-cover rounded-[10px] w-1/2 md:w-full"
+            className="sm:flex-1 h-[436px] sm:h-auto object-cover rounded-[10px] w-1/2 sm:w-full md:w-5/12 md:h-auto"
             src="images/nuv_project.png"
             alt="rectangleFive"
           />
           <Img
-            className="md:flex-1 h-[436px] md:h-auto object-cover rounded-[10px] w-1/2 md:w-full"
+            className="sm:flex-1 h-[436px] sm:h-auto object-cover rounded-[10px] w-1/2 sm:w-full md:w-5/12 md:h-auto"
             src="images/bcp_project.png"
             alt="rectangleSix"
           />
         </div>
-        <div className="flex md:flex-col flex-row gap-[18px] items-center justify-start max-w-[1206px] md:mt-[1rem] mt-[2rem] mx-auto md:px-5 w-full">
+        <div className="flex sm:flex-col flex-row gap-[18px] items-center justify-start max-w-[1206px] sm:mt-[1rem] mt-[2rem] mx-auto sm:px-5 md:px-5 md:justify-center w-full">
           <Img
-            className="md:flex-1 h-[436px] md:h-auto object-cover rounded-[10px] w-1/2 md:w-full"
+            className="sm:flex-1 h-[436px] sm:h-auto object-cover rounded-[10px] w-1/2 sm:w-full md:w-5/12 md:h-auto"
             src="images/tfp_project.png"
             alt="rectangleFive"
           />
           <Img
-            className="md:flex-1 h-[436px] md:h-auto object-cover rounded-[10px] w-1/2 md:w-full"
+            className="sm:flex-1 h-[436px] sm:h-auto object-cover rounded-[10px] w-1/2 sm:w-full md:w-5/12 md:h-auto"
             src="images/eq_project.png"
             alt="rectangleSix"
           />
@@ -795,20 +811,20 @@ const HomeScreenPage: FC = () => {
 
               <div className="image items-start  flex flex-col  gap-5 flex-1">
                 <Text
-                  className="leading-[26px] text-[19px] font-light  text-white-A700  md:text-[16px]"
+                  className="leading-[26px] text-[19px] font-light  text-white-A700 md:text-center md:text-[16px] w-full"
                 >
                   Contact Us
                 </Text>
                 <Text
-                  className="leading-[26px] text-white-A700 font-light text-xs sm:text-[14px]"
+                  className="leading-[26px] text-white-A700 font-light md:text-center  md:text-[14px]"
 
                 >
                   <ul className="leading-[26px] ">
-                    <li >
+                    {/* <li >
                       ADDRESS: 1 MACARTHUR PLACE, SUITE #350SANTA ANA,CA 92707
-                    </li>
-                    <li >PHONE: 1-800-475-9149</li>
-                    <li>EMAIL: INFO@USBFUND.COM</li>
+                    </li> */}
+                    <li >PHONE: 1 (925) 699-0780</li>
+                    <li>EMAIL: santosh.krishna@techsential.io</li>
 
                   </ul>
 
