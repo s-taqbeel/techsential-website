@@ -1,3 +1,5 @@
+"use client"
+
 import React, { FC, useEffect, useRef, useState } from "react";
 
 import {
@@ -9,18 +11,21 @@ import {
   Slider,
   Text,
   Accordion
-} from "components";
+} from "../components";
 // import TextOutline from "components/TextOutline";
 import Link from "next/link";
+import { NextPage } from "next";
+import Image from "next/image";
 
 
 
-const HomeScreenPage: FC = () => {
+
+const HomeScreenPage: NextPage = () => {
   const sliderRef = useRef(null);
-  const [sliderState, setsliderState] = useState(0);
+  const [sliderState, setsliderState] = useState<number>(0);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [toggle, setToggle] = useState<boolean>(false);
-  const [selectedLink, setSelectedLink] = useState('/');
+  const [selectedLink, setSelectedLink] = useState<string>('/');
 
 
   useEffect(() => {
@@ -28,11 +33,6 @@ const HomeScreenPage: FC = () => {
       setIsMobile(window.innerWidth <= 1024); // Adjust the breakpoint as needed
     };
 
-    if (window?.location?.hash) {
-      setSelectedLink(window?.location?.hash?.replace('#', ''))
-    } else {
-      setSelectedLink('/')
-    }
     // Initial check
     handleResize();
 
@@ -45,7 +45,7 @@ const HomeScreenPage: FC = () => {
     };
   }, []);
 
-  const scrollToSection = (event, sectionId) => {
+  const scrollToSection = (event: any, sectionId: string) => {
     event.preventDefault();
     setSelectedLink(sectionId.replace('#', ''))
     isMobile && setToggle(false)
@@ -63,129 +63,111 @@ const HomeScreenPage: FC = () => {
 
   return (
     <>
-      <div className="bg-black-900 flex flex-col font-poppins items-center justify-end mx-auto py-[30px] w-full">
+      <div className=" flex flex-col  items-center justify-end mx-auto py-[30px] w-full">
 
         <div className=" h-[100vh]  relative w-full">
 
           {
             !isMobile ? (
-              <div className=" flex  flex-row justify-between items-center sm:flex-col   w-[80%] mx-auto">
-                <a href="/" onClick={() => setSelectedLink('/')}>
+              <div className=" flex  flex-row justify-between items-center  w-[80%] mx-auto">
+                <Link href="/" onClick={() => setSelectedLink('/')}>
+                  <div className="relative flex flex-1 md:w-[30vw] h-[7.5vh]">
                   <Img
-                    className=" h-[3rem] object-cover"
-                    src="images/logo_nav.png"
-                    alt="vector_One"
+                    fill
+                    resize="contain"
+                    className=" bg-green-500"
+                    src="/images/logo_nav.png"
+                    alt="logo"
                   />
-                </a>
+                  </div>
+                </Link>
 
-                <div className="flex  sm:flex-col flex-row gap-[2rem] items-center">
-                  <Text
-                    // className="bg-clip-text bg-gradient  text-lg text-transparent w-auto"
-                    className={`text-lg ${selectedLink === "/" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
-                    size="txtPoppinsMedium18"
-                  >
-                    {/* <Link href="/">Home</Link> */}
-                    <a href="#home" onClick={(event) => scrollToSection(event, '#home')}>Home</a>
+                <div className="flex flex-1 flex-row gap-[2rem] items-center justify-end">
+                <Link href="#home" onClick={(event) => scrollToSection(event, '#home')}>
+                   <Text   className={`text-lg  ${selectedLink === "/" || selectedLink === "home" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `} >
+                   Home
                   </Text>
-                  <Text
-                    // className="text-lg text-white-A700 w-auto"
-                    className={`text-lg ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
-                    size="txtPoppinsMedium18WhiteA700"
-                  >
-                    <a href="#about-us" onClick={(event) => scrollToSection(event, '#about-us')}> About Us</a>
-                  </Text>
-                  <Text
-                    // className="text-lg text-white-A700 w-auto"
-                    className={`text-lg ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
-                    size="txtPoppinsMedium18WhiteA700"
-                  >
-                    <a href="#our-projects" onClick={(event) => scrollToSection(event, '#our-projects')}>Portfolio</a>
-                  </Text>
-                  <Text
-                    // className="text-lg text-white-A700 w-auto"
-                    className={`text-lg ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
-                    size="txtPoppinsMedium18WhiteA700"
-                  >
-                    <a href="#services" onClick={(event) => scrollToSection(event, '#services')}>Services</a>
-                  </Text>
-                  <Text
-                    //  className="text-lg text-white-A700 w-auto"
-                    className={`text-lg ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
-                    size="txtPoppinsMedium18WhiteA700"
-                  >
-                    <a href="#faq" onClick={(event) => scrollToSection(event, '#faq')}>FAQ</a>
-                  </Text>
+                  </Link>
+                  <Link href="#about-us" onClick={(event) => scrollToSection(event, '#about-us')}>
+                    <Text className={`text-lg  ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `} >
+                      About Us
+                    </Text>
+                  </Link>
+                  <Link href="#our-projects" onClick={(event) => scrollToSection(event, '#our-projects')}>
+                    <Text className={`text-lg ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `} >
+                      Portfolio
+                    </Text>
+                  </Link>
+                  <Link href="#services"  onClick={(event) => scrollToSection(event, '#services')}>
+                    <Text className={`text-lg ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `} >
+                      Services
+                    </Text>
+                  </Link>
+                  <Link href="#faq" onClick={(event) => scrollToSection(event, '#faq')}>
+                    <Text className={`text-lg ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `} >
+                      FAQ
+                    </Text>
+                  </Link>
                   {/* <Button className="bg-gradient  cursor-pointer font-medium  min-w-[196px] md:ml-[0]  py-3 rounded text-center text-lg text-white-A700">
-                    <a href="mailto:santosh.krishna@techsential.io"> Request A Quote</a>
+                    <Link href="mailto:santosh.krishna@techsential.io"> Request A Quote</Link>
                   </Button> */}
                 </div>
 
               </div>
             ) : (
-              <div className="flex flex-row justify-between md:px-5">
+              <div className="flex flex-row justify-between items-center px-5">
 
-                <div className="image flex-col">
-                  <a href="/" onClick={() => setSelectedLink('/')}>   <Img
-                    className=" h-[3rem] object-cover"
-                    src="images/logo_nav.png"
-                    alt="vector_One"
+                <Link href="/" onClick={() => setSelectedLink('/')}>
+                  <Img
+                    width={150}
+                    src="/images/logo_nav.png"
+                    alt="logo"
                   />
-                  </a>
-                </div>
+                </Link>
 
-                <div className="image flex-col z-[2]">
+                <div className="flex-col z-[2]">
                   <Img
                     onClick={() => {
                       setToggle(!toggle)
                     }}
-                    // className=" h-[3rem] object-cover z-[10001]"
-                    // src="images/menu.svg"
-                    className={`h-[3rem] object-contain cursor-pointer ${toggle ? 'rotate-180' : 'rotate-0'}`}
-                    src={toggle ? "images/close.svg" : "images/menu.svg"}
+                    width={30}
+                    height={30}
+                    className={`object-contain h-10 w-10  cursor-pointer ${toggle ? 'rotate-180' : 'rotate-0'}`}
+                    src={toggle ? "/images/close.svg" : "/images/menu.svg"}
                     alt={toggle ? "close" : "menu"}
                   />
+
                 </div>
 
                 <div className={`${toggle ? 'slide-in' : 'slide-out'} p-4 py-20 space-y-4 flex flex-col fixed z-[1] h-[100vh] inset-y-0 right-0 w-2/3 bg-gray-700 bg-opacity-50  backdrop-blur-md shadow-lg`}>
                   <div className="flex-col h-full gap-5 p-5 flex ">
 
-                    <Text
-                      // className="bg-clip-text bg-gradient  text-lg text-transparent"
-                      className={`text-[26px] ${selectedLink === "/" ? 'bg-clip-text bg-gradient text-transparent w-auto' : 'text-white-A700'} `}
-                      size="txtPoppinsMedium18"
-                    >
-                      <a href="#home" onClick={(event) => scrollToSection(event, '#home')}>Home</a>
+                    <Link href="#home" onClick={(event) => scrollToSection(event, '#home')}><Text className={`text-2xl ${selectedLink === "home" ? 'bg-clip-text bg-gradient text-transparent w-auto' : 'text-white-A700'} `}  >
+                      Home
                     </Text>
-                    <Text
-                      // className="text-lg text-white-A700 w-auto"
-                      className={`text-[26px] ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
-                      size="txtPoppinsMedium18WhiteA700"
-                    >
-                      <a href="#about-us" onClick={(event) => scrollToSection(event, '#about-us')}>About Us</a>
-                    </Text>
-                    <Text
-                      // className="text-lg text-white-A700 w-auto"
-                      className={`text-[26px] ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
-                      size="txtPoppinsMedium18WhiteA700"
-                    >
-                      <a href="#our-projects" onClick={(event) => scrollToSection(event, '#our-projects')}>Portfolio</a>
-                    </Text>
-                    <Text
-                      // className="text-lg text-white-A700 w-auto"
-                      className={`text-[26px] ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
-                      size="txtPoppinsMedium18WhiteA700"
-                    >
-                      <a href="#services" onClick={(event) => scrollToSection(event, '#services')}>Services</a>
-                    </Text>
-                    <Text
-                      // className="text-lg text-white-A700 w-auto"
-                      className={`text-[26px] ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}
-                      size="txtPoppinsMedium18WhiteA700"
-                    >
-                      <a href="#faq" onClick={(event) => scrollToSection(event, '#faq')}>FAQ</a>
-                    </Text>
+                    </Link>
+                    <Link href="#about-us" onClick={(event) => scrollToSection(event, '#about-us')}>
+                      <Text className={`text-2xl ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}   >
+                        About Us
+                      </Text>
+                    </Link>
+                    <Link href="#our-projects" onClick={(event) => scrollToSection(event, '#our-projects')}>
+                      <Text className={`text-2xl ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `} >
+                        Portfolio
+                      </Text>
+                    </Link>
+                    <Link href="#services" onClick={(event) => scrollToSection(event, '#services')}>
+                      <Text className={`text-2xl ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `} >
+                        Services
+                      </Text>
+                    </Link>
+                    <Link href="#faq" onClick={(event) => scrollToSection(event, '#faq')}>
+                      <Text className={`text-2xl ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `} >
+                        FAQ
+                      </Text>
+                    </Link>
                     {/* <Button className="bg-gradient  cursor-pointer font-medium  min-w-[196px] md:ml-[0]  py-3 rounded text-center text-lg text-white-A700">
-                        <a href="mailto:santosh.krishna@techsential.io">Request A Quote</a>
+                        <Link href="mailto:santosh.krishna@techsential.io">Request A Quote</Link>
                         </Button> */}
                   </div>
                 </div>
@@ -195,31 +177,31 @@ const HomeScreenPage: FC = () => {
           }
 
           <div className="relative w-full" id="#home">
-            {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-md w-auto h-[100vh]"></div>}
+            {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-md w-full h-[100vh] z-[1]"></div>}
             <Img
-              className="h-[716px] m-auto object-cover"
-              src="images/header_bg.png"
+              fill
+              className="h-[100vh] "
+              src="/images/header_bg.png"
               alt="Header-Background"
             />
           </div>
-          <div className="absolute h-full flex flex-col md:gap-10 gap-28 inset-x-[0] items-end justify-center mx-auto top-[3%] w-[83%]">
+          <div className="absolute h-full flex flex-col md:gap-28 gap-10 inset-x-[0] items-end justify-center mx-auto top-[3%] z-[2] w-[95%]">
 
-            <div className="bg flex flex-col justify-center w-[50%] md:w-full sm:w-full">
+            <div className="bg flex flex-col justify-center lg:w-[50%] w-full">
               <Text
-                className="leading-[50px] text-white-A700"
-                size="txtPoppinsBold6867"
+                className="leading-[50px] text-white-A700 text-center md:text-left"
               >
-                <span className=" font-poppins sm:text-[1.8rem] text-[3rem] font-light">
+                <span className=" text-[2.5rem] md:text-[3rem] font-light">
                   Welcome to
                 </span>
                 <br />
-                <span className="bg-clip-text sm:text-[2.9rem] text-[4rem] bg-gradient text-transparent  font-poppins uppercase text-left font-bold ">
+                <span className="bg-clip-text text-[2.9rem] md:text-[4rem] bg-gradient text-transparent  uppercase text-left font-bold ">
                   Techsential
                 </span>
               </Text>
               <Text
-                className="leading-[26px]  mt-[17px] sm:text-[17px] text-[19px] text-white-A700"
-                size="txtPoppinsLight21"
+                className="  mt-[17px] text-xl font-light text-white-A700 text-center md:text-left w-full"
+
               >
                 <>
                   Techsential is a Pak-USA-based company working for digital
@@ -232,12 +214,16 @@ const HomeScreenPage: FC = () => {
                   developed projects mentioned in our portfolio.
                 </>
               </Text>
-              <div className="flex sm:flex-col flex-row gap-2.5 items-center sm:items-start justify-start mt-[38px] w-[67%] md:w-full">
-                <Button className="bg-gradient  cursor-pointer font-medium leading-[normal] min-w-[178px] py-3 rounded text-center text-lg text-white-A700">
-                  <a href="mailto:santosh.krishna@techsential.io"> Contact Us</a>
+              <div className="flex flex-col md:flex-row gap-2.5 items-center md:items-start justify-start mt-[3rem] md:w-[67%] w-full">
+                {/* <Button className="bg-gradient  cursor-pointer font-medium leading-[normal] min-w-[178px] py-3 rounded text-center text-lg text-white-A700">
+                  <Link href="mailto:santosh.krishna@techsential.io"> Contact Us</Link>
+                </Button> */}
+                <Button className="bg-gradient cursor-pointer font-medium leading-[normal] min-w-[178px] py-3 rounded text-center text-lg text-white-A700 transform transition-transform hover:scale-105">
+                  <Link href="mailto:santosh.krishna@techsential.io">Contact Us</Link>
                 </Button>
+
                 {/* <Button className="bg-transparent border border-solid cursor-pointer font-medium leading-[normal] light_blue_700_purple_A400_border min-w-[190px] py-3 rounded text-center text-lg text-white-A700">
-                <a href="mailto:santosh.krishna@techsential.io"> Get Free Quote</a>
+                <Link href="mailto:santosh.krishna@techsential.io"> Get Free Quote</Link>
                 </Button> */}
               </div>
             </div>
@@ -246,48 +232,49 @@ const HomeScreenPage: FC = () => {
 
 
         <div className="relative w-full" id="about-us">
-          <div className="relative w-full">
-            {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-sm w-[100vw] h-[100vh]"></div>}
-            <Img
-              className=" m-auto object-cover h-auto w-full"
-              src="images/cubes.png"
-              alt="imageThree"
-            />
-          </div>
 
 
-          <div className=" absolute flex flex-row  inset-x-[0] items-start justify-between mx-auto top-[18%] sm:top-[10%] w-[88%] sm:flex-col sm:gap-10">
-            <div className="flex flex-col items-start  w-[20vw] sm:w-full sm:gap-5">
+
+          <div className=" md:absolute md:z-[1] flex flex-col  md:flex-row  inset-x-[0] items-start justify-between mx-auto mt-[2.7rem]   w-[88%] gap-8">
+            <div className="flex flex-col items-start  md:w-[20vw] w-[70vw] gap-3">
               <Text
-                className="sm:leading-[26px] bg-clip-text bg-gradient sm:text-[1.8rem] text-[2.5rem] text-shadow-ts text-transparent uppercase"
-                size="txtPoppinsSemiBold36"
+                className=" bg-clip-text bg-gradient text-[1.8rem] md:text-[2.5rem] text-shadow-ts text-transparent uppercase"
+
               >
                 Vision
               </Text>
               <Text
-                className="sm:leading-[26px] sm:text-[17px] text-[19px] text-white-A700 "
-                size="txtPoppinsLight24"
+                className=" text-lg text-white-A700 font-light"
               >
                 Empowering Innovation Through Technology: Shaping a Future of Possibilities.
               </Text>
             </div>
 
-            <div className="flex flex-col items-start w-[23vw] sm:w-full sm:gap-5">
+            <div className="flex flex-col items-start  md:w-[20vw] w-[70vw] gap-3">
               <Text
-                className="sm:leading-[26px] bg-clip-text bg-gradient  sm:text-[1.8rem] text-[2.5rem] text-shadow-ts text-transparent uppercase"
-                size="txtPoppinsSemiBold36"
+                className=" bg-clip-text bg-gradient text-[1.8rem] md:text-[2.5rem] text-shadow-ts text-transparent uppercase"
+
               >
                 Mission
               </Text>
               <Text
-                className="sm:leading-[26px]  sm:text-[17px] text-[19px] text-white-A700 "
-                size="txtPoppinsLight24"
+                className=" text-lg md:text-[19px] text-white-A700 font-light"
+
               >
                 Our mission is to provide you with web, android, and design solutions for your businesses.
               </Text>
             </div>
 
           </div>
+
+          <div className="relative w-full">
+            {/* {isMobile && <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-sm w-[100vw] h-[100vh]"></div>} */}
+            <Img
+              className=" m-auto object-cover h-auto w-full"
+              src="/images/cubes.png"
+              alt="about"
+            />
+          </div>
         </div>
 
 
@@ -296,41 +283,41 @@ const HomeScreenPage: FC = () => {
 
 
 
-        <div className="relative">
+        <div className="relative mt-[2rem] ">
           <Text
-            className="sm:mt-[2rem] bg-clip-text bg-gradient  sm:text-[40px] md:text-[46px] text-[54px] text-center text-transparent"
-            size="txtPoppinsBold54"
+            className="bg-clip-text bg-gradient text-3xl md:text-5xl text-center text-transparent font-bold"
+
             id="services"
           >
             Services
           </Text>
         </div>
-        <div className=" relative mt-[2rem]  w-[100%] md:w-full">
+        <div className=" relative mt-[2rem]  w-full">
 
-          <div className="  flex flex-row justify-center m-auto w-[80%] md:gap-[2rem]  md:flex-col-reverse md:items-center">
-            <div className="flex  flex-col gap-[0.8rem] w-[45%] md:w-[90%]  sm:mt-10 justify-center">
+          <div className="  flex md:flex-row justify-center m-auto w-[90%] gap-[2rem]  flex-col-reverse items-center">
+            <div className="flex  flex-col gap-[0.8rem] w-full  lg:w-[45%]  sm:mt-10 justify-center">
               <Text
-                className="sm:leading-[26px] sm:text-center text-[2rem] sm:text-[1.5rem] font-light  text-white-A700  sm:w-full"
+                className="text-3xl font-light  text-white-A700  w-full"
 
               >
                 Website Design and Development Services
               </Text>
               <Text
-                className="sm:leading-[26px] sm:text-center text-white-A700 font-light sm:text-[17px]  text-[19px] w-full"
+                className="  text-white-A700 font-light text-lg w-full"
 
               >
                 If you’re looking for engaging and user-friendly web
                 designs and solutions then you’re at the right place.
               </Text>
               <Text
-                className="sm:leading-[26px]  text-white-A700 font-light sm:text-[17px]  text-[19px] sm:w-full sm:text-center"
+                className="  text-white-A700 font-light text-lg w-full"
 
               >
-                <span className="text-white-A700 font-poppins  font-light ">
+                <span className=" text-white-A700  font-light ">
                   We develop Websites that are:
                   <br />
                 </span>
-                <ul className="sm:text-[15px] md:text-[17px] text-[19px] text-white-A700 font-poppins text-left text-lg font-light list-disc list-inside ml-5 ">
+                <ul className="text-[17px] md:text-[19px] text-white-A700 text-left text-lg font-light list-disc list-inside ml-2 mt-2 ">
                   <li className="text-base">
                     Elegant Designs and Fully Functional
                   </li>
@@ -354,9 +341,9 @@ const HomeScreenPage: FC = () => {
               </Text>
             </div>
             <Img
-              className=" h-full  my-auto object-cover right-[0] w-[50%] sm:w-[80%]"
-              src="images/img_2021.png"
-              alt="2021"
+              className=" h-full  my-auto object-cover right-[0] w-[80%] md:w-[50%]"
+              src="/images/img_2021.png"
+              alt="services"
             />
           </div>
         </div>
@@ -366,22 +353,17 @@ const HomeScreenPage: FC = () => {
 
 
 
-          <div className="bg-gray-900 gap-5 md:w-[100%] flex  md:px-5  relative md:flex-col md:items-center md:pb-10">
+          <div className="bg-gray-900 gap-5 w-full flex relative flex-col md:flex-row items-center pb-10 md:pb-0">
             <Img
-              className="h-full object-cover w-[50%] md:w-[100%] px-20 py-10"
-              src="images/eq.png"
-              alt="imageFourteen"
+              className="h-full  md:w-[50%] w-full px-20 py-10"
+              src="/images/eq.png"
+              alt="eq"
             />
-            <div className="flex flex-col w-[50%] justify-center gap-5 md:w-[80%]">
-              <Text
-                className="text-[2rem] md:text-center leading-[35px]  font-light  text-white-A700  md:w-full"
-
-              >
+            <div className="flex flex-col w-[90%] justify-center gap-5 md:w-[35%]">
+              <Text className="text-3xl md:text-left   font-light  text-white-A700  w-full"              >
                 App Development
               </Text>
-              <Text className="sm:leading-[26px] text-white-A700 md:text-center font-light md:text-[17px]  text-[19px] w-[80%] md:w-full"
-
-              >
+              <Text className=" text-white-A700 md:text-left font-light text-lg w-full"  >
                 Build engaging Unity games that attract a large audience and
                 influence the players with incredible performance. We have
                 experienced unity game engineers to build prime 2D and 3D
@@ -393,20 +375,13 @@ const HomeScreenPage: FC = () => {
 
 
 
-          <div className="gap-15 py-10 w-[80%] mx-auto  flex  md:px-5  md:mt-10 relative  md:items-center md:flex-col-reverse ">
+          <div className="gap-5  md:gap-20 py-10 w-full mx-auto  flex  justify-center  md:px-5  md:mt-10 relative  items-center md:flex-row flex-col-reverse ">
 
-
-
-            <div className="flex flex-col w-[45%] justify-center gap-5 md:w-full ">
-              <Text
-                className="text-[2rem] md:text-center leading-[35px]  font-light  text-white-A700  md:mt-10 md:w-full"
-
-              >
+            <div className="flex flex-col w-[90%] justify-center gap-5 md:w-[40%]">
+              <Text className="text-3xl   font-light  text-white-A700  w-full"              >
                 Blockchain Development
               </Text>
-              <Text className="leading-[26px] text-white-A700 md:text-center font-light md:text-[17px] text-[19px] w-full"
-
-              >
+              <Text className=" text-white-A700 md:text-left font-light text-lg w-full"              >
                 You must be looking for heightened security, efficiency,
                 and transparency, blockchain can help you with that. We’re
                 best in blockchain application development, integration,
@@ -414,36 +389,35 @@ const HomeScreenPage: FC = () => {
                 offer data-driven solutions to match your business needs.
               </Text>
             </div>
-            <Img
-              className="object-contain p-10 md:p-0  w-[50%] md:w-full"
-              src="images/nuv.png"
-              alt="imageFourteen"
-            />
-
-
+            <div className="object-contain  p-10 md:p-0 md:w-[30%] w-full">
+              <Image
+                height={550}
+                width={550}
+                src="/images/nuv.png"
+                alt="nuvomint"
+              />
+            </div>
 
           </div>
 
 
-          <div className="bg-gray-900 gap-5 md:w-full flex  md:px-5  relative md:flex-col md:items-center md:pb-10">
-            <Img
-              className="h-full object-cover w-[50%] md:w-full"
-              src="images/brain.png"
-              alt="imageFourteen"
-            />
-            <div className="flex flex-col w-[50%] justify-center gap-5 md:w-[80%]">
-              <Text
-                className="text-[2rem] md:text-center leading-[35px]  font-light  text-white-A700  md:w-full"
+          <div className="bg-gray-900 gap-5 w-full flex relative flex-col md:flex-row items-center pb-10 md:pb-0">
 
-              >
+            <Img
+              className="md:p-0 md:w-[50%] w-ful"
+              src="/images/brain.png"
+              alt="brain"
+            />
+            <div className="flex flex-col md:w-[35%] justify-center gap-5 w-[90%]">
+              <Text className="text-3xl   font-light  text-white-A700  w-full"              >
+
                 Artificial Intelligence (AI)
               </Text>
-              <Text className="leading-[26px] text-white-A700 md:text-center font-light md:text-[17px] text-[19px] w-[80%] md:w-full"
+              <Text className=" text-white-A700 md:text-left font-light text-lg w-full"              >
 
-              >
-                We're your gateway to the future with cutting-edge AI solutions.
+                {`We're your gateway to the future with cutting-edge AI solutions.
                 Our team of AI specializes in advanced algorithms and custom
-                solutions, helping your business thrive in the era of intelligence.
+                solutions, helping your business thrive in the era of intelligence.`}
               </Text>
             </div>
           </div>
@@ -451,35 +425,90 @@ const HomeScreenPage: FC = () => {
         </div>
 
         <Text
-          className="bg-clip-text bg-gradient  mt-[2rem] sm:text-[40px] md:text-[46px] text-[54px] text-shadow-ts text-transparent"
-          size="txtPoppinsBold54"
+          className="bg-clip-text bg-gradient  mt-[5rem] text-3xl md:text-5xl lg:text-[54px] text-shadow-ts text-transparent font-bold"
+
           id="our-projects"
         >
           Our Projects
         </Text>
-        <div className="flex sm:flex-col flex-row gap-[18px] items-center justify-start max-w-[1206px] mt-[2rem] mx-auto md:px-5 md:justify-center w-full">
+        {/* <div className="flex flex-col md:flex-row gap-[18px] items-center justify-start max-w-[1206px] mt-[2rem] md:mt-[4rem] mx-auto px-5 md:justify-center w-full">
           <Img
-            className="sm:flex-1 h-[436px] sm:h-auto object-cover rounded-[10px] w-1/2 sm:w-full md:w-5/12 md:h-auto"
+            className="flex-1 h-[436px] sm:h-auto object-cover rounded-[10px]  w-full md:w-5/12 md:h-auto hover:opacity-25"
             src="images/nuv_project.png"
             alt="rectangleFive"
           />
           <Img
-            className="sm:flex-1 h-[436px] sm:h-auto object-cover rounded-[10px] w-1/2 sm:w-full md:w-5/12 md:h-auto"
+            className="flex-1 h-[436px] sm:h-auto object-cover rounded-[10px]  w-full md:w-5/12 md:h-auto"
             src="images/bcp_project.png"
             alt="rectangleSix"
           />
-        </div>
-        <div className="flex sm:flex-col flex-row gap-[18px] items-center justify-start max-w-[1206px] sm:mt-[1rem] mt-[2rem] mx-auto sm:px-5 md:px-5 md:justify-center w-full">
+        </div> */}
+
+        {/* <div className="flex flex-col md:flex-row gap-[18px] items-center justify-start max-w-[1206px] md:mt-[2rem] mt-[1rem] mx-auto px-5 md:justify-center w-full">
           <Img
-            className="sm:flex-1 h-[436px] sm:h-auto object-cover rounded-[10px] w-1/2 sm:w-full md:w-5/12 md:h-auto"
+            className="flex-1 h-[436px] sm:h-auto object-cover rounded-[10px]  w-full md:w-5/12 md:h-auto"
             src="images/tfp_project.png"
             alt="rectangleFive"
           />
           <Img
-            className="sm:flex-1 h-[436px] sm:h-auto object-cover rounded-[10px] w-1/2 sm:w-full md:w-5/12 md:h-auto"
+            className="flex-1 h-[436px] sm:h-auto object-cover rounded-[10px]  w-full md:w-5/12 md:h-auto"
             src="images/eq_project.png"
             alt="rectangleSix"
           />
+        </div> */}
+
+        <div className="flex flex-col md:flex-row gap-[18px] items-center justify-start max-w-[1206px] mt-[2.5rem] md:mt-[4rem] mx-auto px-5 md:justify-center w-full">
+          <div className="image-container cursor-pointer">
+            <div className="image-wrapper">
+              <Img
+                className="flex-1 h-auto sm:h-auto object-cover rounded-[10px] w-full md:w-full project-img"
+                src="/images/nuv_project.png"
+                alt="nuvomint"
+              />
+              <div className="image-overlay">
+                <Text className="text-2xl">Nuvomint</Text>
+              </div>
+            </div>
+          </div>
+          <div className="image-container cursor-pointer">
+            <div className="image-wrapper">
+              <Img
+                className="flex-1 h-auto sm:h-auto object-cover rounded-[10px] w-full md:w-full  project-img"
+                src="/images/bcp_project.png"
+                alt="blockchainpoker"
+              />
+              <div className="image-overlay">
+                <Text className="text-2xl">Blockchain Poker</Text>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-[18px] items-center justify-start max-w-[1206px] mt-[1.5rem] mx-auto px-5 md:justify-center w-full">
+          <div className="image-container cursor-pointer">
+            <div className="image-wrapper">
+              <Img
+                className="flex-1 h-auto rounded-[10px] w-full md:w-full md:h-auto project-img"
+                src="/images/tfp_project.png"
+                alt="trustfundpups"
+              />
+              <div className="image-overlay">
+                <Text className="text-2xl">Trust Funds Pups</Text>
+              </div>
+            </div>
+          </div>
+          <div className="image-container cursor-pointer ">
+            <div className="image-wrapper">
+              <Img
+                className="flex-1 h-auto  rounded-[10px] w-full md:w-full project-img"
+                src="/images/eq_project.png"
+                alt="EQ&YOU"
+              />
+              <div className="image-overlay">
+                <Text className="text-2xl">EQ & You</Text>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* <div className="flex flex-col mt-[5rem] md:px-5 relative w-full">
@@ -493,7 +522,7 @@ const HomeScreenPage: FC = () => {
               <div className="flex flex-col items-center justify-start">
                 <Text
                   className="bg-clip-text bg-gradient  sm:text-[40px] md:text-[46px] text-[54px] text-transparent"
-                  size="txtPoppinsBold54"
+                  
                 >
                   Our Clients
                 </Text>
@@ -523,21 +552,21 @@ const HomeScreenPage: FC = () => {
                         />
                         <Text
                           className="leading-[150.00%] mt-[9px] text-blue_gray-900 text-center text-sm"
-                          size="txtPoppinsRegular14"
+                          
                         >
-                          <span className="text-white-A700 font-poppins text-lg font-bold">
+                          <span className="text-white-A700  text-lg font-bold">
                             <>
                               Leslie Alexander
                               <br />
                             </>
                           </span>
-                          <span className="text-gray-400 font-poppins text-base font-normal">
+                          <span className="text-gray-400  text-base font-normal">
                             designation
                           </span>
                         </Text>
                         <Text
                           className="italic leading-[176.50%] mt-3.5 text-base text-center text-white-A700_ce w-full"
-                          size="txtPoppinsItalic16"
+                          
                         >
                           <>
                             Lorem Ipsum is simply dummy text of the printing
@@ -551,7 +580,7 @@ const HomeScreenPage: FC = () => {
                         </Text>
                         <Text
                           className="mt-[15px] text-center text-sm text-white-A700"
-                          size="txtPoppinsMedium14"
+                          
                         >
                           www.loremIpsum.com
                         </Text>
@@ -590,18 +619,14 @@ const HomeScreenPage: FC = () => {
         </div> */}
 
 
-        <div className="flex flex-col gap-5 justify-start mx-auto w-[80%] mt-[2rem] sm:mt-[2rem] z-[1]" id="faq">
-          <div className="flex flex-col md:gap-10 gap-[69px] items-center justify-start w-full">
-            <Text
-              className="bg-clip-text bg-gradient  sm:text-[40px] md:text-[46px] text-[54px] text-center text-transparent"
-              size="txtPoppinsBold54"
-
-            >
+        <div className="flex flex-col gap-5 justify-start mx-auto w-[80%] mt-[5rem] z-[1]" id="faq">
+          <div className="flex flex-col gap-10  items-center justify-start w-full ">
+            <Text className="bg-clip-text bg-gradient  text-3xl md:text-5xl text-center text-transparent font-bold"            >
               Frequently Asked Questions
             </Text>
 
 
-            <div className=" w-full">
+            <div className="w-full">
               <Accordion title="What services does your company offer?" content="We provide many IT solutions, including software development, web development, mobile app development, Blockchain, and AI Services. Explore our services page for more information." />
               <Accordion title="How can I request a quote for my project?" content={`To get a customized quote, go to our "Contact Us" section and fill out the form with your project details. Our team will get in touch with you promptly to discuss your requirements.`} />
               <Accordion title="Do you work with businesses of all sizes?" content="Yes, we work with businesses of all sizes, from startups to large enterprises. Our solutions are tailored to meet our client's specific needs and budgets." />
@@ -619,7 +644,7 @@ const HomeScreenPage: FC = () => {
                     />
                     <Text
                       className="text-lg text-white-A700 w-auto"
-                      size="txtPoppinsRegular18"
+                      
                     >
                       How will app development help my business?
                     </Text>
@@ -628,7 +653,7 @@ const HomeScreenPage: FC = () => {
                     <Line className="bg-white-A700_4c h-[66px] md:h-px md:w-full w-px" />
                     <Text
                       className="leading-[150.00%] max-w-[990px] md:max-w-full text-base text-white-A700 tracking-[-0.80px]"
-                      size="txtPoppinsLight16"
+                
                     >
                       There was a time when people thought that the internet
                       was just a fad, and would just fizzle out. The internet
@@ -654,7 +679,7 @@ const HomeScreenPage: FC = () => {
                       />
                       <Text
                         className="text-lg text-white-A700 w-auto"
-                        size="txtPoppinsRegular18"
+                        
                       >
                         How do you know if you need a website or not?
                       </Text>
@@ -670,7 +695,7 @@ const HomeScreenPage: FC = () => {
                       />
                       <Text
                         className="text-lg text-white-A700 w-auto"
-                        size="txtPoppinsRegular18"
+                        
                       >
                         I don’t have enough budget to spare a lot on app
                         development. Can my app be built on a tight budget?
@@ -687,7 +712,7 @@ const HomeScreenPage: FC = () => {
                       />
                       <Text
                         className="max-w-[953px] md:max-w-full text-lg text-white-A700"
-                        size="txtPoppinsRegular18"
+                        
                       >
                         How can I share my app idea without risking it getting
                         leaked? What security do you guarantee on the app
@@ -705,7 +730,7 @@ const HomeScreenPage: FC = () => {
                       />
                       <Text
                         className="text-lg text-white-A700 w-auto"
-                        size="txtPoppinsRegular18"
+                        
                       >
                         How can we start the work?
                       </Text>
@@ -721,7 +746,7 @@ const HomeScreenPage: FC = () => {
                       />
                       <Text
                         className="text-lg text-white-A700 w-auto"
-                        size="txtPoppinsRegular18"
+                        
                       >
                         Would you provide consultancies before and after the
                         development phase?
@@ -738,7 +763,7 @@ const HomeScreenPage: FC = () => {
                       />
                       <Text
                         className="text-lg text-white-A700 w-auto"
-                        size="txtPoppinsRegular18"
+                        
                       >
                         What is a blockchain application?
                       </Text>
@@ -754,7 +779,7 @@ const HomeScreenPage: FC = () => {
                       />
                       <Text
                         className="text-lg text-white-A700 w-auto"
-                        size="txtPoppinsRegular18"
+                        
                       >
                         What are the benefits of blockchain technology?
                       </Text>
@@ -764,26 +789,24 @@ const HomeScreenPage: FC = () => {
                 </List>
               </div> */}
           </div>
-          {/* <a
+          {/* <Link
               href="javascript:"
               className="md:ml-[0] ml-[941px] text-lg text-white-A700"
             >
-              <Text size="txtPoppinsRegular18">Read More</Text>
-            </a> */}
+              <Text >Read More</Text>
+            </Link> */}
         </div>
 
 
-        <div className="bg-gradient3 border  flex flex-col items-center  justify-start  p-[71px] md:px-10  rounded-[35px] w-[90%] mt-[2rem]">
+        <div className="bg-gradient3 border  flex flex-col items-center  justify-start  p-10 md:px-10  rounded-[35px] w-[90%] mt-[2rem]">
 
-          <div className="flex flex-row  md:flex-col md:gap-10 md:items-center justify-between">
-            <div className=" w-3/12  md:w-1/2 md:mx-auto ">
-              <Img
-                className="h-full md:h-auto object-cover"
-                src="images/img_frame.png"
-                alt="frame"
-              />
-            </div>
-            <div className=" h-auto w-8/12 md:w-full md:items-center flex md:flex-col gap-10 my-auto ">
+          <div className="flex flex-col  md:flex-row gap-10 items-center justify-between w-full ">
+            <Img
+              className=" md:w-3/12  w-1/2"
+              src="/images/img_frame.png"
+              alt="logo"
+            />
+            <div className=" md:w-8/12 w-full items-center md:items-start flex flex-col gap-10 my-auto">
               {/* <div className="image items-start  flex flex-col  gap-5   flex-1">
                 <Text
                   className="text-base font-light  text-white-A700 sm:text-[16px]"
@@ -809,17 +832,17 @@ const HomeScreenPage: FC = () => {
 
               </div> */}
 
-              <div className="image items-start  flex flex-col  gap-5 flex-1">
+              <div className="image items-start  flex flex-col  gap-5 flex-1 w-full">
                 <Text
-                  className="leading-[26px] text-[19px] font-light  text-white-A700 md:text-center md:text-[16px] w-full"
+                  className=" text:xl md:text-xl font-light  text-white-A700 text-center md:text-left w-full"
                 >
                   Contact Us
                 </Text>
                 <Text
-                  className="leading-[26px] text-white-A700 font-light md:text-center  md:text-[14px]"
+                  className="  text-white-A700 font-light text-center  md:text-left w-full"
 
                 >
-                  <ul className="leading-[26px] ">
+                  <ul className="text-sm md:text-sm md:text-left">
                     {/* <li >
                       ADDRESS: 1 MACARTHUR PLACE, SUITE #350SANTA ANA,CA 92707
                     </li> */}
@@ -861,9 +884,9 @@ const HomeScreenPage: FC = () => {
 
         </div>
 
-        <div className=" flex sm:flex-col flex-row sm:gap-5 gap-10 mt-[2rem] items-center justify-start w-auto sm:w-full">
+        <div className=" flex flex-col md:flex-row md:gap-5 gap-10 mt-[2rem] items-center justify-start md:w-auto w-full">
           <Text
-            className="leading-[26px] capitalize text-sm text-white-A700 w-auto font-light"
+            className=" capitalize text-sm text-white-A700 w-auto font-light"
           >
             Copyright © 2022, All rights reserved.
           </Text>

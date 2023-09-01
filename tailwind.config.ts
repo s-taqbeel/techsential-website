@@ -1,12 +1,18 @@
+/** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
-  mode: "jit",
   content: [
-    "./src/**/**/*.{js,ts,jsx,tsx,html,mdx}",
-    "./src/**/*.{js,ts,jsx,tsx,html,mdx}",
+    // './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    // './components/**/*.{js,ts,jsx,tsx,mdx}',
+    // './app/**/*.{js,ts,jsx,tsx,mdx}',
+
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: "class",
   theme: {
-    screens: { md: { max: "1050px" }, sm: { max: "550px" } },
     extend: {
       colors: {
         white: { A700_4c: "#ffffff4c", A700_ce: "#ffffffce", A700: "#ffffff" },
@@ -42,5 +48,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("tailwindcss-textshadow")],
-};
+  // plugins: [require("@tailwindcss/forms"), require("tailwindcss-textshadow")],
+  plugins: [],
+}
+
