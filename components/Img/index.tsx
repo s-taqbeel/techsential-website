@@ -47,6 +47,8 @@ const Img: React.FC<React.PropsWithChildren<ImgProps>> = ({
        alt={alt}
        objectFit='contain'
        className="w-full"
+       quality={100}
+       unoptimized={true}
      />
       }
      
