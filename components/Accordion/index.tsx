@@ -33,13 +33,12 @@ const Accordion: React.FC<React.PropsWithChildren<AccordionProps>> = ({
                         alt="arrow"
                     />
 
-                    <Text className=" text-xl text-white-A700  font-light w-[90%] md:w-full"                  >
+                    <Text className=" text-xl text-white-A700  font-light w-[90%] md:w-full">
                         {title}
                     </Text>
                 </button>
             </div>
 
-            {/* <div className={` flex md:flex-col flex-row gap-[17px] items-center sm:items-start justify-start  w-full  ${isShowing ? 'block' : 'hidden'} `}> */}
             <div className={`flex flex-col md:flex-row gap-[17px] items-center md:items-start justify-start w-full ${isShowing ? 'slide-down' : 'slide-up'}`}>
                 <Line className="bg-white-A700_4c md:h-[66px] h-px md:w-px" />
                 <Text className="  max-w-[990px] md:max-w-full  text-lg text-white-A700 tracking-[-0.80px] font-light md:w-2/3"                >

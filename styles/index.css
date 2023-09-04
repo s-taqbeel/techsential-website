@@ -240,17 +240,19 @@ ul li a{
 
 .image-container {
   position: relative;
-  background-color: #132cdc;
+
 }
 
 .image-wrapper {
   position: relative;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .image-wrapper img {
   display: block;
-  transition: transform 0.3s;
+  /* transition: transform 0.3s; */
+
 }
 
 .image-overlay {
@@ -265,14 +267,18 @@ ul li a{
   justify-content: center;
   opacity: 0;
   transition: opacity 0.3s;
+  border-radius: 10px;
+}
+
+.image-overlay, .project-img {
+  transition: transform .5s;
 }
 
 .image-container:hover .image-overlay {
   opacity: 1;
+  transform: scale(1.25);
 }
 
 .image-container:hover .project-img {
-  transform: scale(1.25); /* You can adjust the scale as desired */
+  transform: scale(1.25); 
 }
-
-

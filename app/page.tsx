@@ -65,115 +65,115 @@ const HomeScreenPage: NextPage = () => {
     <>
       <div className=" flex flex-col  items-center justify-end mx-auto py-[30px] w-full">
 
-      {
-            !isMobile ? (
-              <div className=" flex  flex-row justify-between items-center  w-[80%] mx-auto ">
-                <Link href="/" onClick={() => setSelectedLink('/')}>
-                  <div className="relative flex flex-1 md:w-[30vw] h-[7.5vh]">
-                    <Img
-                      fill
-                      resize="contain"
-                      className=" bg-green-500"
-                      src="/images/logo_nav.png"
-                      alt="logo"
-                    />
-                  </div>
-                </Link>
+        {
+          !isMobile ? (
+            <div className=" flex  flex-row justify-between items-center  w-[80%] mx-auto ">
+              <Link href="/" onClick={() => setSelectedLink('/')}>
+                <div className="relative flex flex-1 md:w-[30vw] h-[7.5vh]">
+                  <Img
+                    fill
+                    resize="contain"
+                    className=" bg-green-500"
+                    src="/images/logo_nav.png"
+                    alt="logo"
+                  />
+                </div>
+              </Link>
 
-                <div className="flex flex-1 flex-row gap-[2rem] items-center justify-end">
-                  
-                  <Link href="#home" onClick={(event) => scrollToSection(event, '#home')}>
-                    <Text className={`text-lg  ${selectedLink === "/" || selectedLink === "home" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
-                      Home
-                    </Text>
+              <div className="flex flex-1 flex-row gap-[2rem] items-center justify-end">
+
+                <Link href="#home" onClick={(event) => scrollToSection(event, '#home')}>
+                  <Text className={`text-lg  ${selectedLink === "/" || selectedLink === "home" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
+                    Home
+                  </Text>
+                </Link>
+                <Link href="#about-us" onClick={(event) => scrollToSection(event, '#about-us')}>
+                  <Text className={`text-lg  ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
+                    About Us
+                  </Text>
+                </Link>
+                <Link href="#our-projects" onClick={(event) => scrollToSection(event, '#our-projects')}>
+                  <Text className={`text-lg ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
+                    Portfolio
+                  </Text>
+                </Link>
+                <Link href="#services" onClick={(event) => scrollToSection(event, '#services')}>
+                  <Text className={`text-lg ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
+                    Services
+                  </Text>
+                </Link>
+                <Link href="#faq" onClick={(event) => scrollToSection(event, '#faq')}>
+                  <Text className={`text-lg ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
+                    FAQ
+                  </Text>
+                </Link>
+                {/* <Button className="bg-gradient  cursor-pointer font-medium  min-w-[196px] md:ml-[0]  py-3 rounded text-center text-lg text-white-A700">
+      <Link href="mailto:santosh.krishna@techsential.io"> Request A Quote</Link>
+    </Button> */}
+              </div>
+
+            </div>
+          ) : (
+            <div className="flex flex-row justify-between items-center px-5">
+
+              <Link href="/" onClick={() => setSelectedLink('/')}>
+                <Img
+                  width={150}
+                  src="/images/logo_nav.png"
+                  alt="logo"
+                />
+              </Link>
+
+              <div className="flex-col z-[2]">
+                <Img
+                  onClick={() => {
+                    setToggle(!toggle)
+                  }}
+                  width={30}
+                  height={30}
+                  className={`object-contain h-10 w-10  cursor-pointer ${toggle ? 'rotate-180' : 'rotate-0'}`}
+                  src={toggle ? "/images/close.svg" : "/images/menu.svg"}
+                  alt={toggle ? "close" : "menu"}
+                />
+
+              </div>
+
+              <div className={`${toggle ? 'slide-in' : 'slide-out'} p-4 py-20 space-y-4 flex flex-col fixed z-[1] h-[100vh] inset-y-0 right-0 w-2/3 bg-gray-700 bg-opacity-50  backdrop-blur-md shadow-lg`}>
+                <div className="flex-col h-full gap-5 p-5 flex ">
+
+                  <Link href="#home" onClick={(event) => scrollToSection(event, '#home')}><Text className={`text-2xl ${selectedLink === "home" ? 'bg-clip-text bg-gradient text-transparent w-auto' : 'text-white-A700'} `}>
+                    Home
+                  </Text>
                   </Link>
                   <Link href="#about-us" onClick={(event) => scrollToSection(event, '#about-us')}>
-                    <Text className={`text-lg  ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
+                    <Text className={`text-2xl ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
                       About Us
                     </Text>
                   </Link>
                   <Link href="#our-projects" onClick={(event) => scrollToSection(event, '#our-projects')}>
-                    <Text className={`text-lg ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
+                    <Text className={`text-2xl ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
                       Portfolio
                     </Text>
                   </Link>
                   <Link href="#services" onClick={(event) => scrollToSection(event, '#services')}>
-                    <Text className={`text-lg ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
+                    <Text className={`text-2xl ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
                       Services
                     </Text>
                   </Link>
                   <Link href="#faq" onClick={(event) => scrollToSection(event, '#faq')}>
-                    <Text className={`text-lg ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
+                    <Text className={`text-2xl ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
                       FAQ
                     </Text>
                   </Link>
                   {/* <Button className="bg-gradient  cursor-pointer font-medium  min-w-[196px] md:ml-[0]  py-3 rounded text-center text-lg text-white-A700">
-      <Link href="mailto:santosh.krishna@techsential.io"> Request A Quote</Link>
-    </Button> */}
-                </div>
-
-              </div>
-            ) : (
-              <div className="flex flex-row justify-between items-center px-5">
-
-                <Link href="/" onClick={() => setSelectedLink('/')}>
-                  <Img
-                    width={150}
-                    src="/images/logo_nav.png"
-                    alt="logo"
-                  />
-                </Link>
-
-                <div className="flex-col z-[2]">
-                  <Img
-                    onClick={() => {
-                      setToggle(!toggle)
-                    }}
-                    width={30}
-                    height={30}
-                    className={`object-contain h-10 w-10  cursor-pointer ${toggle ? 'rotate-180' : 'rotate-0'}`}
-                    src={toggle ? "/images/close.svg" : "/images/menu.svg"}
-                    alt={toggle ? "close" : "menu"}
-                  />
-
-                </div>
-
-                <div className={`${toggle ? 'slide-in' : 'slide-out'} p-4 py-20 space-y-4 flex flex-col fixed z-[1] h-[100vh] inset-y-0 right-0 w-2/3 bg-gray-700 bg-opacity-50  backdrop-blur-md shadow-lg`}>
-                  <div className="flex-col h-full gap-5 p-5 flex ">
-
-                    <Link href="#home" onClick={(event) => scrollToSection(event, '#home')}><Text className={`text-2xl ${selectedLink === "home" ? 'bg-clip-text bg-gradient text-transparent w-auto' : 'text-white-A700'} `}>
-                      Home
-                    </Text>
-                    </Link>
-                    <Link href="#about-us" onClick={(event) => scrollToSection(event, '#about-us')}>
-                      <Text className={`text-2xl ${selectedLink === "about-us" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
-                        About Us
-                      </Text>
-                    </Link>
-                    <Link href="#our-projects" onClick={(event) => scrollToSection(event, '#our-projects')}>
-                      <Text className={`text-2xl ${selectedLink === "our-projects" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
-                        Portfolio
-                      </Text>
-                    </Link>
-                    <Link href="#services" onClick={(event) => scrollToSection(event, '#services')}>
-                      <Text className={`text-2xl ${selectedLink === "services" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
-                        Services
-                      </Text>
-                    </Link>
-                    <Link href="#faq" onClick={(event) => scrollToSection(event, '#faq')}>
-                      <Text className={`text-2xl ${selectedLink === "faq" ? 'bg-clip-text bg-gradient text-transparent' : 'text-white-A700'} `}>
-                        FAQ
-                      </Text>
-                    </Link>
-                    {/* <Button className="bg-gradient  cursor-pointer font-medium  min-w-[196px] md:ml-[0]  py-3 rounded text-center text-lg text-white-A700">
           <Link href="mailto:santosh.krishna@techsential.io">Request A Quote</Link>
           </Button> */}
-                  </div>
                 </div>
-
               </div>
-            )
-          }
+
+            </div>
+          )
+        }
         <div className=" h-[100vh]  relative w-full">
 
 
@@ -426,8 +426,7 @@ const HomeScreenPage: NextPage = () => {
         </div>
 
         <Text
-          className="bg-clip-text bg-gradient  mt-[5rem] text-3xl md:text-5xl lg:text-[54px] text-shadow-ts text-transparent font-bold"
-
+          className="bg-clip-text bg-gradient  mt-[5rem] text-3xl md:text-5xl text-shadow-ts text-transparent font-bold"
           id="our-projects"
         >
           Our Projects
@@ -467,7 +466,19 @@ const HomeScreenPage: NextPage = () => {
                 alt="nuvomint"
               />
               <div className="image-overlay">
-                <Text className="text-2xl">Nuvomint</Text>
+                <div className="p-10">
+                  <Text className="bg-clip-text bg-gradient text-center text-xl xl:text-5xl text-shadow-ts text-transparent font-bold">
+                    Nuvomint
+                  </Text>
+                  <Text className="p-5 xl:p-10 text-white-A700 font-light text-xs xl:text-lg text-center w-full">
+                    {`It is a platform designed for NFT enthusiasts, offering NFT 
+                rating, a marketplace for buying and selling, and social 
+                features like profiles and groups. Users earn points for 
+                accurate NFT ratings, gain badges based on points, and 
+                collect coins for platform engagement. Achieving all badges 
+                elevates users to "King user" status.`}
+                  </Text>
+                </div>
               </div>
             </div>
           </div>
@@ -479,7 +490,20 @@ const HomeScreenPage: NextPage = () => {
                 alt="blockchainpoker"
               />
               <div className="image-overlay">
-                <Text className="text-2xl">Blockchain Poker</Text>
+                <div className="p-10">
+                  <Text className="bg-clip-text bg-gradient text-center text-xl xl:text-5xl text-shadow-ts text-transparent font-bold">
+                    Blockchain Poker
+                  </Text>
+                  <Text className="p-5 xl:p-10 text-white-A700 font-light text-xs xl:text-lg text-center w-full">
+                    A dynamic metaverse poker game uniting
+                    global players in virtual rooms for thrilling poker action. It
+                    offers two modes: Crypto Mode and
+                    Free Mode. In Crypto Mode,
+                    users buy chips with crypto tokens, play on Oculus Quest devices,
+                    and win or lose actual cash. Free Mode offers stress-free
+                    entertainment with no real-money.
+                  </Text>
+                </div>
               </div>
             </div>
           </div>
@@ -494,7 +518,17 @@ const HomeScreenPage: NextPage = () => {
                 alt="trustfundpups"
               />
               <div className="image-overlay">
-                <Text className="text-2xl">Trust Funds Pups</Text>
+                <div className="p-10">
+                  <Text className="bg-clip-text bg-gradient text-center text-xl xl:text-5xl text-shadow-ts text-transparent font-bold">
+                    Trust Funds Pups
+                  </Text>
+                  <Text className="p-5 xl:p-10 text-white-A700 font-light text-xs xl:text-lg text-center w-full">
+                    This innovative concept aims to create a trust fund for puppies by auctioning
+                    exclusive artworks from renowned and emerging artists. In each auction, two
+                    artists showcase one artwork or NFT. Auction proceeds go toward rescuing
+                    real-world puppies based on fundraising and rescue agency requirements.
+                  </Text>
+                </div>
               </div>
             </div>
           </div>
@@ -506,7 +540,18 @@ const HomeScreenPage: NextPage = () => {
                 alt="EQ&YOU"
               />
               <div className="image-overlay">
-                <Text className="text-2xl">EQ & You</Text>
+                <div className="p-10">
+                  <Text className="bg-clip-text bg-gradient text-center text-xl xl:text-5xl text-shadow-ts text-transparent font-bold">
+                    EQ & You
+                  </Text>
+                  <Text className="p-5 xl:p-10 text-white-A700 font-light text-xs xl:text-lg text-center w-full">
+                    The EQ & You App is a comprehensive mobile application developed
+                    for emotional intelligence training. Designed in Flutter, it includes
+                    features such as a calendar to track user progress over time,
+                    activity and success tracking, and content from emotional intelligence
+                    expert Brent Darnell.
+                  </Text>
+                </div>
               </div>
             </div>
           </div>
