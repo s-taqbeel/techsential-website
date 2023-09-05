@@ -1,6 +1,7 @@
 import './globals.css'
 import "../styles/index.css";
 import localFont from "next/font/local";
+import Favicon from '/public/favicon.ico';
 import type { Metadata } from 'next'
 
 
@@ -35,6 +36,7 @@ const poppinsMedium = localFont({
 export const metadata: Metadata = {
   title: 'Techsential',
   description: 'Fueling Digital Transformation with Elegant Web and Mobile Solutions. Your Partner for Quality Development Services.',
+  icons: [{ rel: 'icon', url: Favicon.src }],
 }
 
 export default function RootLayout({
