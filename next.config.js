@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    formats: ['image/webp','image/ico'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.csd.gov.pk",
+      },
+    ],
   },
 }
 
