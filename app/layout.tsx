@@ -1,7 +1,7 @@
 import './globals.css'
 import "../styles/index.css";
 import localFont from "next/font/local";
-import Favicon from './favicon.ico';
+import Favicon from '../public/favicon.ico';
 import type { Metadata } from 'next'
 
 
