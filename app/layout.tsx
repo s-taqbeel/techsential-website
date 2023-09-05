@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/icon.png" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={`${poppinsRegular.variable} ${poppinsMedium.variable} ${poppinsSemiBold.variable} ${poppinsBold.variable}  ${poppinsLight.variable} bg-black font-poppins`}>{children}</body>
     </html>
